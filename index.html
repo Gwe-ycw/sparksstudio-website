@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="image-slot.js"></script>
+  <meta name="ext-resource-dependency" content="uploads/still-motion.jpg" data-resource-id="stillMotion">
+  <meta name="ext-resource-dependency" content="uploads/still-social.jpg" data-resource-id="stillSocial">
+  <meta name="ext-resource-dependency" content="uploads/still-documentary.jpg" data-resource-id="stillDocu">
+  <style>
+    body { margin: 0; background: #001524; color: #ece9e2; font-family: 'Instrument Sans', sans-serif; text-wrap: pretty; overflow-x: clip; -webkit-font-smoothing: antialiased; }
+    a { color: #F2FF49; }
+    a:hover { color: #f7ff9e; }
+    ::selection { background: #F2FF49; color: #001524; }
+    body::after { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: 0.05; z-index: 999; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(60px) rotate(1deg); } to { opacity: 1; transform: none; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+    [data-reveal] { opacity: 0; transform: translateY(48px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    [data-reveal].on { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+    [data-card] image-slot { filter: grayscale(55%); transition: filter 0.6s ease; }
+    [data-card]:hover image-slot { filter: none; }
+    [data-card] .arr { display: inline-block; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    [data-card]:hover .arr { transform: translate(6px,-6px); }
+    @keyframes blink { 50% { opacity: 0.15; } }
+  </style>
+</helmet>
+
+<header style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); background: linear-gradient(to bottom, rgba(0,21,36,0.28), rgba(0,21,36,0)); mask-image: linear-gradient(to bottom, black 55%, transparent); -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent)">
+  <div style="padding: 22px clamp(20px,4vw,56px); display: flex; align-items: center; gap: 32px; mix-blend-mode: difference">
+    <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 17px; letter-spacing: 0.02em; color: #fff"><img src="uploads/logo-sparksstudiowhite-2a8845dc.png" alt="Sparks Studio" style="height: 38px; display: block; width: auto"></span>
+    <nav style="display: flex; gap: 28px; margin-left: auto; align-items: center">
+      <a href="#work" style="color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Work</a>
+      <a href="#process" style="color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">Process</a>
+      <a href="#about" style="color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase">About</a>
+      <a href="mailto:gwenaelle@sparksstudio.fr" style="color: #fff; text-decoration: none; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid #fff; padding-bottom: 2px">Contact ↗</a>
+    </nav>
+  </div>
+</header>
+
+<template id="__bundler_thumbnail" data-bg-color="#001524"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#001524"></rect><text x="100" y="118" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="56" fill="#F2FF49">S.</text></svg></template>
+<div id="cursor-glow" style="position: fixed; left: -400px; top: -400px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(242,255,73,0.08), transparent 62%); pointer-events: none; z-index: 998; transform: translate(-50%,-50%)"></div>
+<section style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden">
+  <div id="hero-media" style="position: absolute; inset: -12% 0 0 0; will-change: transform">
+    <sc-if value="{{ hasHeroVideo }}" hint-placeholder-val="{{ false }}">
+      <video data-hero-video src="showreel-small.webm" poster="poster-10.jpg" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: block"></video>
+    </sc-if>
+    <sc-if value="{{ noHeroVideo }}" hint-placeholder-val="{{ true }}">
+      <image-slot id="hero-reel" shape="rect" radius="0" placeholder="Showreel plays here, paste your video URL in Tweaks (or drop a fallback frame)" style="width: 100%; height: 100%"></image-slot>
+    </sc-if>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,21,36,0.92) 0%, rgba(0,21,36,0.25) 45%, rgba(0,21,36,0.45) 100%); pointer-events: none"></div>
+  </div>
+  <div style="position: relative; padding: 0 clamp(20px,4vw,56px) 40px; pointer-events: none">
+    <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; animation: riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.2s both">
+      <sc-if value="{{ available }}" hint-placeholder-val="{{ true }}">
+        <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #F2FF49"><span style="width: 7px; height: 7px; border-radius: 50%; background: #F2FF49; box-shadow: 0 0 12px #F2FF49; animation: blink 1.6s steps(1) infinite"></span>Available for new projects · 2026</span>
+      </sc-if>
+    </div>
+    <h1 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(38px,6.8vw,100px); line-height: 0.98; letter-spacing: -0.04em; margin: 0; text-transform: uppercase">
+      <span style="display: block; animation: riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.35s both">Creativity</span>
+      <span style="display: block; animation: riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.5s both">that grows</span>
+      <span style="display: block; font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.02em; color: #F2FF49; animation: riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.65s both">your business</span>
+    </h1>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: 32px; flex-wrap: wrap; animation: riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.8s both">
+      <p style="font-size: 15px; line-height: 1.6; color: rgba(236,233,226,0.75); max-width: 40ch; margin: 0">I’m Gwenaëlle. I help startups and B2B teams get seen, trusted and remembered, through video, photography and motion design that carry your message.</p>
+      <div style="display: flex; align-items: center; gap: 24px">
+        <span style="font-family: 'Space Grotesk'; font-size: 12px; letter-spacing: 0.14em; color: rgba(236,233,226,0.55)">REC ● {{ timecode }}</span>
+        <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(236,233,226,0.55)">France · worldwide</span>
+      </div>
+    </div>
+  </div>
+  <a href="#work" aria-label="See the work" style="position: absolute; right: clamp(20px,4vw,56px); bottom: 220px; width: 110px; height: 110px; display: block; z-index: 5">
+    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%; animation: spin 14s linear infinite">
+      <defs><path id="circ" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"></path></defs>
+      <text style="font-family: 'Space Grotesk'; font-size: 10.5px; letter-spacing: 0.22em; fill: #ece9e2"><textPath href="#circ" textLength="238" lengthAdjust="spacingAndGlyphs">SEE THE WORK • SEE THE WORK •</textPath></text>
+    </svg>
+    <span style="position: absolute; inset: 0; display: grid; place-content: center; color: #F2FF49; font-size: 22px">↓</span>
+  </a>
+</section>
+
+<div style="border-top: 1px solid rgba(236,233,226,0.12); border-bottom: 1px solid rgba(236,233,226,0.12); overflow: hidden; padding: 18px 0; background: #001524">
+  <div style="display: flex; width: max-content; animation: marquee 28s linear infinite">
+    <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="12">
+      <span style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(20px,2.2vw,30px); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; padding: 0 18px; color: {{ m.color }}">{{ m.text }}</span>
+    </sc-for>
+  </div>
+</div>
+
+<main style="max-width: 1440px; margin: 0 auto; padding: 0 clamp(20px,4vw,56px)">
+
+  <section id="work" style="padding: clamp(72px,10vw,140px) 0 0">
+    <div data-reveal style="display: flex; align-items: baseline; gap: 20px; margin-bottom: clamp(36px,4vw,64px)">
+      <span style="font-family: 'Space Grotesk'; font-size: 13px; color: #F2FF49; letter-spacing: 0.14em">01 / WORK</span>
+      <h2 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(38px,5.4vw,84px); letter-spacing: -0.035em; margin: 0">Selected <em style="font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; color: #F2FF49">work</em></h2>
+      <span style="margin-left: auto; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(236,233,226,0.45)">2021 · 2026</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(20px,3vw,48px) clamp(16px,2vw,32px)">
+      <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="6">
+        <a data-reveal data-card href="{{ cat.href }}" style="grid-column: {{ cat.col }}; margin-top: {{ cat.mt }}; text-decoration: none; color: #ece9e2; display: block; position: relative" style-hover="color: #F2FF49">
+          <div style="overflow: hidden; border-radius: 3px">
+            <div style="transition: transform 0.7s cubic-bezier(0.16,1,0.3,1)" style-hover="transform: scale(1.04)">
+              <image-slot id="{{ cat.slotId }}" shape="rect" radius="0" placeholder="{{ cat.placeholder }}" style="width: 100%; aspect-ratio: {{ cat.ratio }}"></image-slot>
+            </div>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 14px; padding: 18px 0 0; border-bottom: 1px solid rgba(236,233,226,0.14); padding-bottom: 18px">
+            <span style="font-family: 'Space Grotesk'; font-size: 12px; color: #F2FF49; letter-spacing: 0.1em">{{ cat.index }}</span>
+            <div style="flex: 1">
+              <h3 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(20px,1.8vw,26px); letter-spacing: -0.015em; margin: 0; text-transform: uppercase">{{ cat.title }}</h3>
+              <p style="font-size: 13.5px; line-height: 1.5; color: rgba(236,233,226,0.55); margin: 6px 0 0; max-width: 42ch">{{ cat.blurb }}</p>
+            </div>
+            <span class="arr" style="font-size: 20px">↗</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding: clamp(88px,12vw,170px) 0; text-align: left">
+    <p data-reveal style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(236,233,226,0.45); margin: 0 0 28px">02 / THE IDEA</p>
+    <blockquote data-reveal style="font-family: 'Instrument Serif'; font-weight: 400; font-size: clamp(30px,4.6vw,66px); line-height: 1.15; letter-spacing: -0.015em; max-width: 24ch; margin: 0">“Tell me how you share your story, and I’ll show you <em style="color: #F2FF49">the value you inspire</em>.”</blockquote>
+    <p data-reveal style="font-size: 16px; line-height: 1.7; color: rgba(236,233,226,0.6); max-width: 50ch; margin: 36px 0 0">Images pass, pile up, disappear. Few of them tell a story, inspire, leave a trace. Here, the image takes its time, the time of meaning, and of lasting.</p>
+  </section>
+
+  <section id="process" style="border-top: 1px solid rgba(236,233,226,0.12); padding: clamp(56px,7vw,100px) 0">
+    <div data-reveal style="display: flex; align-items: baseline; gap: 20px; margin-bottom: clamp(36px,4vw,64px)">
+      <span style="font-family: 'Space Grotesk'; font-size: 13px; color: #F2FF49; letter-spacing: 0.14em">03 / PROCESS</span>
+      <h2 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(32px,4vw,58px); letter-spacing: -0.03em; margin: 0">How a story <em style="font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; color: #F2FF49">gets made</em></h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: clamp(28px,3vw,56px)">
+      <div data-reveal>
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(72px,7vw,120px); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(242,255,73,0.55)">01</span>
+        <h3 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: 22px; margin: 18px 0 0; text-transform: uppercase; letter-spacing: 0.02em">Narrative &amp; intent</h3>
+        <p style="font-size: 15px; line-height: 1.65; color: rgba(236,233,226,0.6); margin: 12px 0 0; max-width: 40ch">Building an accurate, coherent story, anchored in the real, faithful to what your project is actually about.</p>
+      </div>
+      <div data-reveal>
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(72px,7vw,120px); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(242,255,73,0.55)">02</span>
+        <h3 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: 22px; margin: 18px 0 0; text-transform: uppercase; letter-spacing: 0.02em">Eye &amp; capture</h3>
+        <p style="font-size: 15px; line-height: 1.65; color: rgba(236,233,226,0.6); margin: 12px 0 0; max-width: 40ch">Composing strong images on set, framing, light and movement working together, nothing left to chance.</p>
+      </div>
+      <div data-reveal>
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(72px,7vw,120px); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(242,255,73,0.55)">03</span>
+        <h3 style="font-family: 'Space Grotesk'; font-weight: 500; font-size: 22px; margin: 18px 0 0; text-transform: uppercase; letter-spacing: 0.02em">Writing &amp; editing</h3>
+        <p style="font-size: 15px; line-height: 1.65; color: rgba(236,233,226,0.6); margin: 12px 0 0; max-width: 40ch">Precise edit work that gives the images rhythm, meaning and a strong identity of their own.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="border-top: 1px solid rgba(236,233,226,0.12); padding: clamp(56px,7vw,100px) 0; display: grid; grid-template-columns: minmax(0,5fr) minmax(0,7fr); gap: clamp(28px,5vw,88px); align-items: start">
+    <div data-reveal style="position: relative">
+      <div style="overflow: hidden; border-radius: 3px">
+        <image-slot id="portrait" shape="rect" radius="0" placeholder="Drop your portrait" style="width: 100%; aspect-ratio: 4/5"></image-slot>
+      </div>
+      <span style="position: absolute; top: 14px; left: 14px; font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.16em; color: rgba(236,233,226,0.85); background: rgba(0,21,36,0.6); backdrop-filter: blur(6px); padding: 6px 10px; pointer-events: none">GWENAËLLE, BTS</span>
+    </div>
+    <div>
+      <p data-reveal style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(236,233,226,0.45); margin: 0 0 24px">04 / ABOUT</p>
+      <h2 data-reveal style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(32px,4vw,58px); letter-spacing: -0.03em; margin: 0">Behind <em style="font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; color: #F2FF49">the camera</em></h2>
+      <p data-reveal style="font-size: 16px; line-height: 1.7; color: rgba(236,233,226,0.7); max-width: 52ch; margin: 24px 0 0">Three years of freelance work across France, making visuals that speak and hold attention. I handle the whole chain myself, from the first conversation about intent to the final export, so what gets delivered is exactly what was promised.</p>
+      <div data-reveal style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 0; border-top: 1px solid rgba(236,233,226,0.14); margin-top: 36px">
+        <div style="padding: 20px 20px 20px 0; border-bottom: 1px solid rgba(236,233,226,0.14)"><p style="font-family: 'Space Grotesk'; font-size: clamp(30px,2.6vw,42px); font-weight: 500; margin: 0">3</p><p style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(236,233,226,0.5); margin: 6px 0 0">Years telling stories</p></div>
+        <div style="padding: 20px 20px 20px 0; border-bottom: 1px solid rgba(236,233,226,0.14)"><p style="font-family: 'Space Grotesk'; font-size: clamp(30px,2.6vw,42px); font-weight: 500; margin: 0">5</p><p style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(236,233,226,0.5); margin: 6px 0 0">Ways to tell yours</p></div>
+        <div style="padding: 20px 20px 20px 0; border-bottom: 1px solid rgba(236,233,226,0.14)"><p style="font-family: 'Space Grotesk'; font-size: clamp(30px,2.6vw,42px); font-weight: 500; margin: 0">10+</p><p style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(236,233,226,0.5); margin: 6px 0 0">Amazing projects launched in 2026</p></div>
+        <div style="padding: 20px 20px 20px 0; border-bottom: 1px solid rgba(236,233,226,0.14)"><p style="font-family: 'Space Grotesk'; font-size: clamp(30px,2.6vw,42px); font-weight: 500; margin: 0; color: #F2FF49">1</p><p style="font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(236,233,226,0.5); margin: 6px 0 0">Point of contact</p></div>
+      </div>
+      <div data-reveal style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px">
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">DaVinci Resolve</span>
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">After Effects</span>
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">Premiere Pro</span>
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">Lightroom</span>
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">Photoshop</span>
+        <span style="font-family: 'Space Grotesk'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(236,233,226,0.65); border: 1px solid rgba(236,233,226,0.2); padding: 7px 14px; border-radius: 999px">Figma</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section style="border-top: 1px solid rgba(236,233,226,0.12); padding: clamp(72px,9vw,130px) 0 clamp(48px,5vw,72px); overflow: hidden">
+  <p data-reveal style="font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(236,233,226,0.45); margin: 0 0 28px; padding: 0 clamp(20px,4vw,56px)">A story to tell? A lesson to share? A moment to capture?</p>
+  <a href="mailto:gwenaelle@sparksstudio.fr" style="display: block; text-decoration: none; color: #ece9e2" style-hover="color: #F2FF49">
+    <div style="display: flex; width: max-content; animation: marquee 16s linear infinite" style-hover="animation-duration: 5s">
+      <span style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(64px,10vw,160px); letter-spacing: -0.04em; text-transform: uppercase; white-space: nowrap; line-height: 1.1">Let’s talk&nbsp;<span style="font-family: 'Instrument Serif'; font-style: italic; text-transform: none; color: #F2FF49">→</span>&nbsp;Let’s talk&nbsp;<span style="font-family: 'Instrument Serif'; font-style: italic; text-transform: none; color: #F2FF49">→</span>&nbsp;</span>
+      <span style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(64px,10vw,160px); letter-spacing: -0.04em; text-transform: uppercase; white-space: nowrap; line-height: 1.1">Let’s talk&nbsp;<span style="font-family: 'Instrument Serif'; font-style: italic; text-transform: none; color: #F2FF49">→</span>&nbsp;Let’s talk&nbsp;<span style="font-family: 'Instrument Serif'; font-style: italic; text-transform: none; color: #F2FF49">→</span>&nbsp;</span>
+    </div>
+  </a>
+  <p data-reveal style="font-size: 15px; color: rgba(236,233,226,0.55); margin: 32px 0 0; padding: 0 clamp(20px,4vw,56px)">gwenaelle@sparksstudio.fr, I read everything, and I answer fast.</p>
+</section>
+
+<footer style="border-top: 1px solid rgba(236,233,226,0.1)">
+  <div style="max-width: 1440px; margin: 0 auto; padding: 24px clamp(20px,4vw,56px) 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: rgba(236,233,226,0.45)">
+    <span>© 2026 Sparks Studio · Gwenaëlle Yau Chun Wan</span>
+    <span style="display: flex; gap: 20px">
+      <a href="https://www.instagram.com/helanoueg" style="color: rgba(236,233,226,0.65); text-decoration: none" style-hover="color: #F2FF49">Instagram</a>
+      <a href="https://www.youtube.com/@helanoueg" style="color: rgba(236,233,226,0.65); text-decoration: none" style-hover="color: #F2FF49">YouTube</a>
+      <a href="https://www.linkedin.com/" style="color: rgba(236,233,226,0.65); text-decoration: none" style-hover="color: #F2FF49">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;available&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Status&quot;}}">
+class Component extends DCLogic {
+  state = { timecode: '00:00:00:00' };
+  componentDidMount() {
+    this._t0 = performance.now();
+    this._tick = setInterval(() => {
+      const ms = performance.now() - this._t0;
+      const f = Math.floor(ms / 40) % 25, s = Math.floor(ms / 1000);
+      const p = n => String(n).padStart(2, '0');
+      this.setState({ timecode: `${p(Math.floor(s/3600))}:${p(Math.floor(s/60)%60)}:${p(s%60)}:${p(f)}` });
+    }, 120);
+    this._io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); this._io.unobserve(e.target); } }), { threshold: 0.12 });
+    this._watch = setInterval(() => {
+      document.querySelectorAll('[data-reveal]:not(.on)').forEach(el => this._io.observe(el));
+      const v = document.querySelector('#hero-media video');
+      if (v) {
+        const custom = (this.props.heroVideoUrl ?? '').trim();
+        if (custom && !custom.startsWith('uploads/') && !custom.includes('framerusercontent') && v.getAttribute('src') !== custom) v.setAttribute('src', custom);
+        v.playbackRate = (custom && !custom.startsWith('uploads/') && !custom.includes('framerusercontent')) ? 1 : 2/3;
+        v.loop = true; v.muted = true; if (v.paused || v.ended) v.play().catch(() => {});
+      }
+      const R = window.__resources || {};
+      const stills = { 'cat-motion': R.stillMotion || 'uploads/still-motion.jpg', 'cat-social': R.stillSocial || 'uploads/still-social.jpg', 'cat-docu': R.stillDocu || 'uploads/still-documentary.jpg' };
+      document.querySelectorAll('image-slot').forEach(s => { const u = stills[s.id]; if (u && s.getAttribute('src') !== u) s.setAttribute('src', u); });
+    }, 600);
+    this._onMove = e => { const g = document.getElementById('cursor-glow'); if (g) { g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px'; } };
+    this._onScroll = () => { const hm = document.getElementById('hero-media'); if (hm) hm.style.transform = `translateY(${Math.min(window.scrollY * 0.22, 320)}px)`; };
+    window.addEventListener('mousemove', this._onMove, { passive: true });
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() { clearInterval(this._tick); clearInterval(this._watch); this._io && this._io.disconnect(); window.removeEventListener('mousemove', this._onMove); window.removeEventListener('scroll', this._onScroll); }
+  renderVals() {
+    const available = this.props.available ?? true;
+    let heroVideoUrl = (this.props.heroVideoUrl ?? '').trim();
+    if (!heroVideoUrl || heroVideoUrl.startsWith('uploads/')) heroVideoUrl = 'https://framerusercontent.com/assets/bjMZLMbZgtgs6VHhGReKJ64hUfs.mp4';
+    const services = ['Social Media', 'Motion Design', 'Documentary', 'Photography', 'Launching Video'];
+    const marquee = [];
+    for (let i = 0; i < 4; i++) services.forEach((s, j) => {
+      marquee.push({ text: s, color: '#ece9e2' });
+      marquee.push({ text: '✦', color: '#F2FF49' });
+    });
+    return {
+      available,
+      heroVideoUrl,
+      hasHeroVideo: heroVideoUrl.length > 0,
+      noHeroVideo: heroVideoUrl.length === 0,
+      timecode: this.state.timecode,
+      marquee,
+      categories: [
+        { index: '01', title: 'Ads & Social Media', blurb: 'Short formats built like real films, where every second counts.', href: 'ads-social-media.html', slotId: 'cat-social', placeholder: 'Drop a social video still', col: 'span 7', mt: '0', ratio: '16/10' },
+        { index: '02', title: 'Motion Design', blurb: 'When no one wants to face the camera, animation takes over.', href: 'motion-design.html', slotId: 'cat-motion', placeholder: 'Drop a motion design frame', col: 'span 5', mt: 'clamp(32px,5vw,96px)', ratio: '4/3' },
+        { index: '03', title: 'Documentary & Aftermovie', blurb: 'Precise narrative work for stories told in depth.', href: 'documentary.html', slotId: 'cat-docu', placeholder: 'Drop a documentary still', col: 'span 5', mt: '0', ratio: '4/3' },
+        { index: '04', title: 'Photography', blurb: 'Anyone can take a photo. Few can tell a story with a single image.', href: 'photography.html', slotId: 'cat-photo', placeholder: 'Drop a photograph', col: 'span 7', mt: 'clamp(32px,5vw,96px)', ratio: '16/10' },
+        { index: '05', title: 'Launching Video', blurb: 'Product reveals and founder interviews for tech and startups, built to make a launch land.', href: 'launching-video.html', slotId: 'cat-corp', placeholder: 'Drop a launch film still', col: 'span 12', mt: '0', ratio: '21/9' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
