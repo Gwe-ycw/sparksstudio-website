@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="image-slot.js"></script>
+  <script src="yt-clean.js"></script>
   <style>
     body { margin: 0; background: #001524; color: #ece9e2; font-family: 'Instrument Sans', sans-serif; text-wrap: pretty; overflow-x: clip; -webkit-font-smoothing: antialiased; }
     a { color: #F2FF49; }
@@ -106,11 +107,11 @@ class Component extends DCLogic {
     const withYt = p => Object.assign({ noYoutube: !p.youtube }, p);
     return {
       projects: [
-        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/OV_PsexESag?autoplay=1&mute=1&playsinline=1', title: "Salsamour", tag: "Brand portrait", slotId: 'proj-salsamour', placeholder: "Drop a video still", blurb: "A video portrait that dives into the heart of the brand’s story and values, strong images and an authentic interview that capture attention and inspire trust." },
-        { num: '02', imgOrder: '2', youtube: 'https://www.youtube.com/embed/TQj1ho3oxoM?autoplay=1&mute=1&playsinline=1', title: "Parazar", tag: "Social ads", slotId: 'proj-parazar', placeholder: "Drop a video still", blurb: "A social media ad for a mobile app that offers spontaneous nights out." },
-        { num: '03', imgOrder: '0', youtube: 'https://www.youtube.com/embed/XxncereTc1Q?autoplay=1&mute=1&playsinline=1', title: "Manon Gautier", tag: "Event recap", slotId: 'proj-manon', placeholder: "Drop a video still", blurb: "An event captured live, then put under the light of my creative editing, so the energy of the moment keeps working for the brand long after it ends." },
-        { num: '04', imgOrder: '2', youtube: 'https://www.youtube.com/embed/QlrnwP7UUhc?autoplay=1&mute=1&playsinline=1', title: "Saurya", tag: "Short series", slotId: 'proj-saurya', placeholder: "Drop a video still", blurb: "A true-or-false format that turns niche questions into entertaining, instructive content, built to spark curiosity and engagement." },
-        { num: '05', imgOrder: '0', youtube: 'https://www.youtube.com/embed/py3GwkL_qYY?autoplay=1&mute=1&playsinline=1', title: "Bisart Vintage", tag: "Process film", slotId: 'proj-bisart', placeholder: "Drop a video still", blurb: "A short, rhythmic film following the screen-printing of a T-shirt for an upcycling vintage shop and its handmade custom prints." }
+        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/OV_PsexESag?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=OV_PsexESag', title: "Salsamour", tag: "Brand portrait", slotId: 'proj-salsamour', placeholder: "Drop a video still", blurb: "A video portrait that dives into the heart of the brand’s story and values, strong images and an authentic interview that capture attention and inspire trust." },
+        { num: '02', imgOrder: '2', youtube: 'https://www.youtube.com/embed/TQj1ho3oxoM?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=TQj1ho3oxoM', title: "Parazar", tag: "Social ads", slotId: 'proj-parazar', placeholder: "Drop a video still", blurb: "A social media ad for a mobile app that offers spontaneous nights out." },
+        { num: '03', imgOrder: '0', youtube: 'https://www.youtube.com/embed/XxncereTc1Q?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=XxncereTc1Q', title: "Manon Gautier", tag: "Event recap", slotId: 'proj-manon', placeholder: "Drop a video still", blurb: "An event captured live, then put under the light of my creative editing, so the energy of the moment keeps working for the brand long after it ends." },
+        { num: '04', imgOrder: '2', youtube: 'https://www.youtube.com/embed/QlrnwP7UUhc?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=QlrnwP7UUhc', title: "Saurya", tag: "Short series", slotId: 'proj-saurya', placeholder: "Drop a video still", blurb: "A true-or-false format that turns niche questions into entertaining, instructive content, built to spark curiosity and engagement." },
+        { num: '05', imgOrder: '0', youtube: 'https://www.youtube.com/embed/py3GwkL_qYY?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=py3GwkL_qYY', title: "Bisart Vintage", tag: "Process film", slotId: 'proj-bisart', placeholder: "Drop a video still", blurb: "A short, rhythmic film following the screen-printing of a T-shirt for an upcycling vintage shop and its handmade custom prints." }
       ].map(withYt)
     };
   }

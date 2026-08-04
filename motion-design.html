@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="image-slot.js"></script>
+  <script src="yt-clean.js"></script>
   <style>
     body { margin: 0; background: #001524; color: #ece9e2; font-family: 'Instrument Sans', sans-serif; text-wrap: pretty; overflow-x: clip; -webkit-font-smoothing: antialiased; }
     a { color: #F2FF49; }
@@ -106,10 +107,10 @@ class Component extends DCLogic {
     const shape = p => Object.assign({ noYoutube: !p.youtube, frameWidth: p.vertical ? 'min(100%, 340px)' : '100%', frameRatio: p.vertical ? '9/16' : '16/9' }, p);
     return {
       projects: [
-        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/cp1LN_wqUXQ?autoplay=1&mute=1&playsinline=1', title: 'Hostiaa', tag: 'Product video', slotId: 'proj-hostiaa', placeholder: 'Drop a video still', blurb: 'A product presentation made entirely in motion design for an all-in-one management platform for concierge services and short-term rental owners.' },
-        { num: '02', imgOrder: '2', youtube: 'https://www.youtube.com/embed/kF6UNTh7csE?autoplay=1&mute=1&playsinline=1', title: 'SGPE Report', tag: 'Explainer', slotId: 'proj-sgpe', placeholder: 'Drop a video still', blurb: 'A short introduction video for a series of institutional videos, made entirely in motion design.' },
-        { num: '03', imgOrder: '0', youtube: 'https://www.youtube.com/embed/d3tD6IBKq8k?autoplay=1&mute=1&playsinline=1', vertical: true, title: 'Clinique du Sport, Bordeaux-Mérignac', tag: 'Short video series', slotId: 'proj-clinique', placeholder: 'Drop a video still, Dr Barouk / Dr Billaud', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex medical subject simply, featuring Dr Barouk and Dr Billaud.' },
-        { num: '04', imgOrder: '2', vertical: true, youtube: 'https://www.youtube.com/embed/1YIQuu6WumU?start=13&autoplay=1&mute=1&playsinline=1', title: 'SGPE Report', tag: 'Short video series', slotId: 'proj-sgpe-2', placeholder: 'Drop a video still', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex subject simply.' }
+        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/cp1LN_wqUXQ?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=cp1LN_wqUXQ', title: 'Hostiaa', tag: 'Product video', slotId: 'proj-hostiaa', placeholder: 'Drop a video still', blurb: 'A product presentation made entirely in motion design for an all-in-one management platform for concierge services and short-term rental owners.' },
+        { num: '02', imgOrder: '2', youtube: 'https://www.youtube.com/embed/kF6UNTh7csE?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=kF6UNTh7csE', title: 'SGPE Report', tag: 'Explainer', slotId: 'proj-sgpe', placeholder: 'Drop a video still', blurb: 'A short introduction video for a series of institutional videos, made entirely in motion design.' },
+        { num: '03', imgOrder: '0', youtube: 'https://www.youtube.com/embed/d3tD6IBKq8k?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=d3tD6IBKq8k', vertical: true, title: 'Clinique du Sport, Bordeaux-Mérignac', tag: 'Short video series', slotId: 'proj-clinique', placeholder: 'Drop a video still, Dr Barouk / Dr Billaud', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex medical subject simply, featuring Dr Barouk and Dr Billaud.' },
+        { num: '04', imgOrder: '2', vertical: true, youtube: 'https://www.youtube.com/embed/1YIQuu6WumU?start=13&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=1YIQuu6WumU', title: 'SGPE Report', tag: 'Short video series', slotId: 'proj-sgpe-2', placeholder: 'Drop a video still', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex subject simply.' }
       ].map(shape)
     };
   }
