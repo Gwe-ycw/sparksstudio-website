@@ -227,7 +227,7 @@ class Component extends DCLogic {
         v.loop = true; v.muted = true; if (v.paused || v.ended) v.play().catch(() => {});
       }
       const R = window.__resources || {};
-      const stills = { 'cat-motion': R.stillMotion || 'uploads/still-motion.jpg', 'cat-social': R.stillSocial || 'uploads/still-social.jpg', 'cat-docu': R.stillDocu || 'uploads/still-documentary.jpg' };
+      const stills = { 'cat-motion': R.stillMotion || 'uploads/still-motion.jpg', 'cat-social': R.stillSocial || 'uploads/still-social.jpg', 'cat-docu': R.stillDocu || 'uploads/still-documentary.jpg', 'cat-photo': 'uploads/still-photo.webp', 'cat-corp': 'uploads/still-launch.webp', 'portrait': 'uploads/portrait.webp' };
       document.querySelectorAll('image-slot').forEach(s => { const u = stills[s.id]; if (u && s.getAttribute('src') !== u) s.setAttribute('src', u); });
     }, 600);
     this._onMove = e => { const g = document.getElementById('cursor-glow'); if (g) { g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px'; } };
