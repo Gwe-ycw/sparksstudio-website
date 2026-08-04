@@ -55,7 +55,7 @@
       <article data-reveal style="display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(24px,4vw,64px); align-items: center; border-top: 1px solid rgba(236,233,226,0.12); padding-top: clamp(32px,4vw,56px)">
         <div style="overflow: hidden; border-radius: 3px; order: {{ p.imgOrder }}">
           <sc-if value="{{ p.youtube }}" hint-placeholder-val="{{ false }}">
-            <iframe src="{{ p.youtube }}" title="{{ p.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="allowfullscreen" style="width: {{ p.frameWidth }}; aspect-ratio: {{ p.frameRatio }}; border: 0; display: block; margin: 0 auto"></iframe>
+            <video src="{{ p.youtube }}" autoplay muted loop playsinline preload="auto" style="width: {{ p.frameWidth }}; aspect-ratio: {{ p.frameRatio }}; border: 0; display: block; margin: 0 auto; object-fit: cover; background: #001524"></video>
           </sc-if>
           <sc-if value="{{ p.noYoutube }}" hint-placeholder-val="{{ true }}">
             <image-slot id="{{ p.slotId }}" src="{{ p.still }}" shape="rect" radius="0" placeholder="{{ p.placeholder }}" style="width: 100%; aspect-ratio: 16/9"></image-slot>
@@ -108,8 +108,8 @@ class Component extends DCLogic {
     return {
       projects: [
         { num: '01', imgOrder: '0', still: 'uploads/still-mafate.jpg', title: "Mafate, pas à pas", tag: "Documentary", slotId: 'proj-mafate', placeholder: "Drop a film still", blurb: "A documentary shot in the Mafate cirque, releasing October 2026." },
-        { num: '02', imgOrder: '2', vertical: true, youtube: 'https://www.youtube.com/embed/8ud6HcESndc?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=8ud6HcESndc', title: "Untold", tag: "Aftermovie", slotId: 'proj-untold', placeholder: "Drop a video still", blurb: "Aftermovie of the Untold opening at Galerie Vivienne, retracing the flow of the event and putting the works in the spotlight." },
-        { num: '03', imgOrder: '0', vertical: true, youtube: 'https://www.youtube.com/embed/7wQm4OwSvdY?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=7wQm4OwSvdY', title: "Jost x Cabaia", tag: "Aftermovie", slotId: 'proj-jost', placeholder: "Drop a video still", blurb: "Corporate seminar aftermovie." }
+        { num: '02', imgOrder: '2', vertical: true, youtube: 'uploads/videos/8ud6HcESndc.mp4', title: "Untold", tag: "Aftermovie", slotId: 'proj-untold', placeholder: "Drop a video still", blurb: "Aftermovie of the Untold opening at Galerie Vivienne, retracing the flow of the event and putting the works in the spotlight." },
+        { num: '03', imgOrder: '0', vertical: true, youtube: 'uploads/videos/7wQm4OwSvdY.mp4', title: "Jost x Cabaia", tag: "Aftermovie", slotId: 'proj-jost', placeholder: "Drop a video still", blurb: "Corporate seminar aftermovie." }
       ].map(withYt)
     };
   }

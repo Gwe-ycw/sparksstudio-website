@@ -55,7 +55,7 @@
       <article data-reveal style="display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(24px,4vw,64px); align-items: center; border-top: 1px solid rgba(236,233,226,0.12); padding-top: clamp(32px,4vw,56px)">
         <div style="border-radius: 3px; order: {{ p.imgOrder }}">
           <sc-if value="{{ p.youtube }}" hint-placeholder-val="{{ false }}">
-            <iframe src="{{ p.youtube }}" title="{{ p.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="allowfullscreen" style="width: {{ p.frameWidth }}; aspect-ratio: {{ p.frameRatio }}; border: 0; display: block; margin: 0 auto"></iframe>
+            <video src="{{ p.youtube }}" autoplay muted loop playsinline preload="auto" style="width: {{ p.frameWidth }}; aspect-ratio: {{ p.frameRatio }}; border: 0; display: block; margin: 0 auto; object-fit: cover; background: #001524"></video>
           </sc-if>
           <sc-if value="{{ p.noYoutube }}" hint-placeholder-val="{{ true }}">
             <image-slot id="{{ p.slotId }}" shape="rect" radius="0" placeholder="{{ p.placeholder }}" style="width: 100%; aspect-ratio: 16/9"></image-slot>
@@ -107,10 +107,10 @@ class Component extends DCLogic {
     const shape = p => Object.assign({ noYoutube: !p.youtube, frameWidth: p.vertical ? 'min(100%, 340px)' : '100%', frameRatio: p.vertical ? '9/16' : '16/9' }, p);
     return {
       projects: [
-        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/cp1LN_wqUXQ?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=cp1LN_wqUXQ', title: 'Hostiaa', tag: 'Product video', slotId: 'proj-hostiaa', placeholder: 'Drop a video still', blurb: 'A product presentation made entirely in motion design for an all-in-one management platform for concierge services and short-term rental owners.' },
-        { num: '02', imgOrder: '2', youtube: 'https://www.youtube.com/embed/kF6UNTh7csE?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=kF6UNTh7csE', title: 'SGPE Report', tag: 'Explainer', slotId: 'proj-sgpe', placeholder: 'Drop a video still', blurb: 'A short introduction video for a series of institutional videos, made entirely in motion design.' },
-        { num: '03', imgOrder: '0', youtube: 'https://www.youtube.com/embed/d3tD6IBKq8k?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=d3tD6IBKq8k', vertical: true, title: 'Clinique du Sport, Bordeaux-Mérignac', tag: 'Short video series', slotId: 'proj-clinique', placeholder: 'Drop a video still, Dr Barouk / Dr Billaud', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex medical subject simply, featuring Dr Barouk and Dr Billaud.' },
-        { num: '04', imgOrder: '2', vertical: true, youtube: 'https://www.youtube.com/embed/1YIQuu6WumU?start=13&autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=1YIQuu6WumU', title: 'SGPE Report', tag: 'Short video series', slotId: 'proj-sgpe-2', placeholder: 'Drop a video still', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex subject simply.' }
+        { num: '01', imgOrder: '0', youtube: 'uploads/videos/cp1LN_wqUXQ.mp4', title: 'Hostiaa', tag: 'Product video', slotId: 'proj-hostiaa', placeholder: 'Drop a video still', blurb: 'A product presentation made entirely in motion design for an all-in-one management platform for concierge services and short-term rental owners.' },
+        { num: '02', imgOrder: '2', youtube: 'uploads/videos/kF6UNTh7csE.mp4', title: 'SGPE Report', tag: 'Explainer', slotId: 'proj-sgpe', placeholder: 'Drop a video still', blurb: 'A short introduction video for a series of institutional videos, made entirely in motion design.' },
+        { num: '03', imgOrder: '0', youtube: 'uploads/videos/d3tD6IBKq8k.mp4', vertical: true, title: 'Clinique du Sport, Bordeaux-Mérignac', tag: 'Short video series', slotId: 'proj-clinique', placeholder: 'Drop a video still, Dr Barouk / Dr Billaud', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex medical subject simply, featuring Dr Barouk and Dr Billaud.' },
+        { num: '04', imgOrder: '2', vertical: true, youtube: 'uploads/videos/1YIQuu6WumU.mp4', title: 'SGPE Report', tag: 'Short video series', slotId: 'proj-sgpe-2', placeholder: 'Drop a video still', blurb: 'A series of short videos mixing live action and motion design, made to explain a complex subject simply.' }
       ].map(shape)
     };
   }

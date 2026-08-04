@@ -54,7 +54,7 @@
     <sc-for list="{{ projects }}" as="p" hint-placeholder-count="1">
       <article data-reveal style="display: grid; grid-template-columns: minmax(0,7fr) minmax(0,5fr); gap: clamp(24px,4vw,64px); align-items: center; border-top: 1px solid rgba(236,233,226,0.12); padding-top: clamp(32px,4vw,56px)">
         <div style="border-radius: 3px; order: {{ p.imgOrder }}">
-          <iframe src="{{ p.youtube }}" title="{{ p.title }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen="allowfullscreen" style="width: 100%; aspect-ratio: 16/9; border: 0; display: block; border-radius: 3px"></iframe>
+          <video src="{{ p.youtube }}" autoplay muted loop playsinline preload="auto" style="width: 100%; aspect-ratio: 16/9; border: 0; display: block; border-radius: 3px; object-fit: cover; background: #001524"></video>
         </div>
         <div>
           <div style="display: flex; gap: 12px; align-items: center">
@@ -101,7 +101,7 @@ class Component extends DCLogic {
   renderVals() {
     return {
       projects: [
-        { num: '01', imgOrder: '0', youtube: 'https://www.youtube.com/embed/SaptkIzkQ3s?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&loop=1&playlist=SaptkIzkQ3s', title: "Craft System — Feature Launch", tag: "Feature launch", blurb: "Feature launch film for Marble, unveiling the Craft system with a clear, fast-paced narrative built to make the release land." }
+        { num: '01', imgOrder: '0', youtube: 'uploads/videos/SaptkIzkQ3s.mp4', title: "Craft System — Feature Launch", tag: "Feature launch", blurb: "Feature launch film for Marble, unveiling the Craft system with a clear, fast-paced narrative built to make the release land." }
       ]
     };
   }
