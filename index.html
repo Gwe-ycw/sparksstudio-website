@@ -223,7 +223,7 @@ class Component extends DCLogic {
       if (v) {
         const custom = (this.props.heroVideoUrl ?? '').trim();
         if (custom && !custom.startsWith('uploads/') && !custom.includes('framerusercontent') && v.getAttribute('src') !== custom) v.setAttribute('src', custom);
-        v.playbackRate = (custom && !custom.startsWith('uploads/') && !custom.includes('framerusercontent')) ? 1 : 2/3;
+        v.playbackRate = 1;
         v.loop = true; v.muted = true; if (v.paused || v.ended) v.play().catch(() => {});
       }
       const R = window.__resources || {};
